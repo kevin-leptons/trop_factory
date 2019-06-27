@@ -1,9 +1,16 @@
+const assert = require('assert')
+
 const {IService, Config} = require('../../lib')
 
 // Begin: partition A
 class A extends IService {
     static get dependency() {
         return [Config]
+    }
+
+    constructor(conf) {
+        super()
+        assert(conf instanceof Config)
     }
 
     async open() {}
@@ -15,6 +22,11 @@ class Aa extends IService {
         return [A]
     }
 
+    constructor(a) {
+        super()
+        assert(a instanceof A)
+    }
+
     async open() {}
     async close() {}
 }
@@ -22,6 +34,11 @@ class Aa extends IService {
 class Ab extends IService {
     static get dependency() {
         return [A]
+    }
+
+    constructor(a) {
+        super()
+        assert(a instanceof A)
     }
 
     async open() {}
@@ -33,6 +50,12 @@ class Ac extends IService {
         return [A, Aa]
     }
 
+    constructor(a, aa) {
+        super()
+        assert(a instanceof A)
+        assert(aa instanceof Aa)
+    }
+
     async open() {}
     async close() {}
 }
@@ -40,6 +63,11 @@ class Ac extends IService {
 class Ad extends IService {
     static get dependency() {
         return [Ac]
+    }
+
+    constructor(ac) {
+        super()
+        assert(ac instanceof Ac)
     }
 
     async open() {}
@@ -53,6 +81,11 @@ class B extends IService {
         return [Config]
     }
 
+    constructor(conf) {
+        super()
+        assert(conf instanceof Config)
+    }
+
     async open() {}
     async close() {}
 }
@@ -60,6 +93,11 @@ class B extends IService {
 class Ba extends IService {
     static get dependency() {
         return [B]
+    }
+
+    constructor(b) {
+        super()
+        assert(b instanceof B)
     }
 
     async open() {}
@@ -71,6 +109,11 @@ class Bb extends IService {
         return [B]
     }
 
+    constructor(b) {
+        super()
+        assert(b instanceof B)
+    }
+
     async open() {}
     async close() {}
 }
@@ -78,6 +121,12 @@ class Bb extends IService {
 class Bc extends IService {
     static get dependency() {
         return [B, Ba]
+    }
+
+    constructor(b, ba) {
+        super()
+        assert(b instanceof B)
+        assert(ba instanceof Ba)
     }
 
     async open() {}
@@ -88,6 +137,12 @@ class Bd extends IService {
     static get dependency() {
         return [Bc]
     }
+
+    constructor(bc) {
+        super()
+        assert(bc instanceof Bc)
+    }
+
 
     async open() {}
     async close() {}
@@ -109,6 +164,11 @@ class Ca extends IService {
         return [C]
     }
 
+    constructor(c) {
+        super()
+        assert(c instanceof C)
+    }
+
     async open() {}
     async close() {}
 }
@@ -116,6 +176,12 @@ class Ca extends IService {
 class Cb extends IService {
     static get dependency() {
         return [C, Ca]
+    }
+
+    constructor(c, ca) {
+        super()
+        assert(c instanceof C)
+        assert(ca instanceof Ca)
     }
 
     async open() {}

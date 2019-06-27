@@ -1,8 +1,14 @@
+const assert = require('assert')
+
 const {IService} = require('../../lib')
 
 class A extends IService {
     static get dependency() {
         return []
+    }
+
+    constructor() {
+        super()
     }
 
     async open() {}
@@ -12,6 +18,10 @@ class A extends IService {
 class B extends IService {
     static get dependency() {
         return []
+    }
+
+    constructor() {
+        super()
     }
 
     async open() {}

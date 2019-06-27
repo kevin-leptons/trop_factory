@@ -1,3 +1,5 @@
+const assert = require('assert')
+
 const {delay} = require('@trop/gear')
 
 const {IService, Config} = require('../../lib')
@@ -7,6 +9,10 @@ class A extends IService {
         return [Config]
     }
 
+    constructor(conf) {
+        assert(conf instanceof Conf)
+    }
+
     async open() {}
     async close() {}
 }
@@ -14,6 +20,10 @@ class A extends IService {
 class B extends IService {
     static get dependency() {
         return [A]
+    }
+
+    constructor(a) {
+        assert(a instanceof A)
     }
 
     async open() {}

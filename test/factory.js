@@ -5,7 +5,7 @@ const {error, Stopwatch} = require('@trop/gear')
 const {Config, Factory} = require('../lib')
 
 const {
-    not_service, 
+    not_service,
     non_dependency_service,
     not_implemented_service,
     dependency_service,
@@ -216,7 +216,7 @@ describe('Factory.constructor()', () => {
             name: 'Conflict',
             message: 'Duplicated dependency',
             dependency: [
-                duplicated_dependency.map.C, 
+                duplicated_dependency.map.C,
                 duplicated_dependency.map.A
             ]
         })
@@ -241,7 +241,7 @@ describe('Factory.open()', () => {
         conf.y = 2
         let factory = new Factory([], conf)
         await factory.open()
-         
+
         let getted_conf = factory.get(Config)
         assert.notEqual(getted_conf, undefined)
         assert.equal(getted_conf.constructor, Config)
@@ -253,8 +253,8 @@ describe('Factory.open()', () => {
 
     it('with services which throw error on open()', async () => {
         let factory = new Factory(invalid_open_service.array)
-        
-        assert.rejects(async () => {
+
+        await assert.rejects(async () => {
             await factory.open()
         }, invalid_open_service.error_type)
 

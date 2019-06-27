@@ -1,3 +1,5 @@
+const assert = require('assert')
+
 const {IService, Config} = require('../../lib')
 
 class OpenError extends Error {
@@ -12,6 +14,11 @@ class A extends IService {
         return [Config]
     }
 
+    constructor(conf) {
+        super()
+        assert(conf instanceof Config)
+    }
+
     async open() {}
     async close() {}
 }
@@ -21,6 +28,12 @@ class B extends IService {
         return [Config, A]
     }
 
+    constructor(conf, a) {
+        super()
+        assert(conf instanceof Config)
+        assert(a instanceof A)
+    }
+
     async open() {}
     async close() {}
 }
@@ -28,6 +41,13 @@ class B extends IService {
 class C extends IService {
     static get dependency() {
         return [Config, A, B]
+    }
+
+    constructor(conf, a, b) {
+        super()
+        assert(conf instanceof Config)
+        assert(a instanceof A)
+        assert(b instanceof B)
     }
 
     async open() {
@@ -40,6 +60,11 @@ class C extends IService {
 class D extends IService {
     static get dependency() {
         return [C]
+    }
+
+    constructor(c) {
+        super()
+        assert(c instanceof C)
     }
 
     async open() {
